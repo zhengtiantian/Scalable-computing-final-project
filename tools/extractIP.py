@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+
+"""tool to find subnet IP"""
+
+__author__      = "MARK HANRAHAN"
+
+import sys
+import socket
+
+
+def extract_ip():
+    st = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:       
+        st.connect(('10.255.255.255', 1))
+        IP = st.getsockname()[0]
+    except Exception:
+        IP = '127.0.0.1'
+    finally:
+        st.close()
+    return IP
+
+print(extract_ip(), file=sys.stdout)
